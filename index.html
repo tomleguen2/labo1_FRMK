@@ -10,10 +10,6 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Chausettes.ch</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -28,14 +24,16 @@
             <h1>
                 Panier
             </h1>
-            <ul class="list-group mt-2">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Morbi leo risus</li>
-                <li class="list-group-item">Porta ac consectetur ac</li>
-                <li class="list-group-item">Vestibulum at eros</li>
+            <ul class="list-group mt-2" v-for="(i, index) in cart"
+                v-bind:key="i.id">
+                <li class="list-group-item">
+                    {{i.name}}
+                </li>
             </ul>
-            <button type="button" class="btn btn-primary mt-2">Vider</button>
+            <p class="mt-2">
+               Montant total de votre panier : {{total}} CHF
+            </p>
+            <button type="button" class="btn btn-primary mt-2" v-on:click="emptyCart">Vider</button>
         </div>
         <div class="col">
             <h1>
@@ -43,23 +41,30 @@
             </h1>
             <div class="mt-2">
                 <figure>
-                    <img src="./img/chausettes_grises.webp" alt="chaussettes blanches" class="img-fluid img-thumbnail"
+                    <img v-bind:src="chausettes[crntId].src" v-bind:alt="chausettes[crntId].alt"
+                         class="img-fluid img-thumbnail"
                          height="207px" width="207px">
                 </figure>
             </div>
             <p>
-                Vous avez selectionné des chausettes blanches
+                Vous avez séléctionné des {{chausettes[crntId].alt}}, en Stock: {{chausettes[crntId].quantity}} <br>
+                Prix : {{chausettes[crntId].price}} CHF
             </p>
             <div>
                 <ul class="list-group list-group-horizontal-sm mt-3 me-5" v-for="(chausette, index) in chausettes"
                     v-bind:key="chausette.id">
                     <div>
-                        <button class="list-group-item" :style="{'background-color':chausette.color}"></button>
+                        <button class="list-group-item" v-on:click="setImage(index)"
+                                v-bind:style="{backgroundColor:chausette.color}"></button>
                     </div>
                 </ul>
             </div>
             <div class="mt-3">
-                <button type="button" class="btn btn-primary">Ajouter au panier</button>
+                <button type="button" class="btn btn-primary" v-on:click="addToCart(index)">Ajouter au panier</button>
+            </div>
+            <div class = "mt-3" v-show="addVip() === true">
+                <img src="./img/client_vip.webp" alt="client_vip" class="img-fluid img-thumbnail mt-3" height="100px"
+                     width="100px">
             </div>
         </div>
     </div>
