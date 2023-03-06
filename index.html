@@ -19,7 +19,7 @@
     </div>
 </nav>
 <div id="app">
-    <div class="row justify-content-around">
+    <div class="row justify-content-around mx-auto container border pb-5 mt-5 pt-5">
         <div class="col-3 ms-3 me-5">
             <h1>
                 Panier
@@ -27,11 +27,12 @@
             <ul class="list-group mt-2" v-for="(i, index) in cart"
                 v-bind:key="i.id">
                 <li class="list-group-item">
-                    {{i.name}}
+                    <p v-if="itemqtty<1">{{i.name}}</p>
+                    <p v-else>{{i.name}} x {{i.quantity}}</p>
                 </li>
             </ul>
             <p class="mt-2">
-               Montant total de votre panier : {{total}} CHF
+                Montant total de votre panier : {{total}} CHF
             </p>
             <button type="button" class="btn btn-primary mt-2" v-on:click="emptyCart">Vider</button>
         </div>
@@ -48,10 +49,10 @@
             </div>
             <p>
                 Vous avez séléctionné des {{chausettes[crntId].alt}}, en Stock: {{chausettes[crntId].quantity}}
-                <br> <p v-if="chausettes[crntId].quantity<3 && chausettes[crntId].quantity>0"> presque épuisé </p>
-                <p class="alert" v-if="chausettes[crntId].quantity ===0"> Rupture de stock </p>
-
-                Prix : {{chausettes[crntId].price}} CHF
+                <br>
+            <p class="text-warning" v-if="chausettes[crntId].quantity<3 && chausettes[crntId].quantity>0"> Presque épuisé </p>
+            <p class="text-danger" v-if="chausettes[crntId].quantity ===0"> Rupture de stock </p>
+            Prix : {{chausettes[crntId].price}} CHF
             </p>
             <div class="d-flex flex-row">
                 <ul class="list-group list-group-horizontal-sm mt-3 me-5" v-for="(chausette, index) in chausettes"
@@ -65,10 +66,13 @@
             <div class="mt-3">
                 <button type="button" class="btn btn-primary" v-on:click="addToCart(index)">Ajouter au panier</button>
             </div>
-            <div class = "mt-3" v-show="addVip() === true">
-                <img src="./img/client_vip.webp" alt="client_vip" class="img-fluid img-thumbnail mt-3" height="100px"
-                     width="100px">
-            </div>
+        </div>
+        <div class="col mt-3" v-if="cart.quantity>5">
+            <img src="./img/client_vip.webp" alt="client_vip" class="img-fluid img-thumbnail mt-3" height="150px"
+                 width="150px">
+            <p class="mt-3 text-success">
+                Bravo, vous êtes un client VIP !!!
+            </p>
         </div>
     </div>
 </div>

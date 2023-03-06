@@ -45,25 +45,34 @@ let app = new Vue({
         addToCart() {
             if (this.chausettes[this.crntId].quantity > 0) {
                 this.chausettes[this.crntId].quantity--;
-                this.cart.push(this.chausettes[this.crntId]);
-                this.total += this.chausettes[this.crntId].price;
+
+                // if id chaussette is'nt in cart
+                if (this.cart.find(p => p.id === this.chausettes[this.crntId].id)) {
+                    this.cart.find(p => p.id === this.chausettes[this.crntId].id).quantity++;
+                } else {
+                    this.cart.push({
+                        id: this.chausettes[this.crntId].id,
+                        name: this.chausettes[this.crntId].name,
+                        quantity: 1
+                    });
+                    this.total += this.chausettes[this.crntId].price;
+                    console.log(this.cart);
+                    console.log(this.chausettes);
+                }
             }
         },
 
         //vider le panier
         emptyCart() {
-            for (let i = 0; i < this.cart.length; i++) {
-                this.cart[i].quantity++;
-            }
-            this.cart = [];
+            this.cart.forEach((item) => {this.chausettes.find(item2 => item2.id === item.id).quantity += item.quantity;});
             this.total = 0;
-            this.stock = "";
+            this.cart = [];
         },
 
 
         //ajoute un vip
         addVip() {
-            return this.cart.length > 5;
+            this.chausettes.find(item => item.id === 1).quantity += 1;
         }
     }
 
