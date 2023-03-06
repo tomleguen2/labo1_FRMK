@@ -18,7 +18,7 @@ let app = new Vue({
             blanc = {
                 id: 2,
                 name: 'Paire de chausettes blanches',
-                src: './img/chausettes_blanche.jpg',
+                src: './img/chausettes_blanches.webp',
                 alt: 'chausettes blanches',
                 quantity: 6,
                 price: 7,
@@ -47,13 +47,6 @@ let app = new Vue({
                 this.chausettes[this.crntId].quantity--;
                 this.cart.push(this.chausettes[this.crntId]);
                 this.total += this.chausettes[this.crntId].price;
-                if (this.chausettes[this.crntId].quantity <= 2) {
-                    this.stock = "presque epuisé";
-                } else if (this.chausettes[this.crntId].quantity === 0) {
-                    this.stock = "rupture de stock";
-                } else {
-                    this.stock = "en stock";
-                }
             }
         },
 
@@ -64,15 +57,14 @@ let app = new Vue({
             }
             this.cart = [];
             this.total = 0;
+            this.stock = "";
         },
 
 
-          //ajoute un vip
+        //ajoute un vip
         addVip() {
             return this.cart.length > 5;
         }
-
-
-        }
+    }
 
     });

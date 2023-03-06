@@ -47,10 +47,13 @@
                 </figure>
             </div>
             <p>
-                Vous avez séléctionné des {{chausettes[crntId].alt}}, en Stock: {{chausettes[crntId].quantity}} <br>
+                Vous avez séléctionné des {{chausettes[crntId].alt}}, en Stock: {{chausettes[crntId].quantity}}
+                <br> <p v-if="chausettes[crntId].quantity<3 && chausettes[crntId].quantity>0"> presque épuisé </p>
+                <p class="alert" v-if="chausettes[crntId].quantity ===0"> Rupture de stock </p>
+
                 Prix : {{chausettes[crntId].price}} CHF
             </p>
-            <div>
+            <div class="d-flex flex-row">
                 <ul class="list-group list-group-horizontal-sm mt-3 me-5" v-for="(chausette, index) in chausettes"
                     v-bind:key="chausette.id">
                     <div>
