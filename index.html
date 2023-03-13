@@ -32,7 +32,7 @@
                 </li>
             </ul>
             <p class="mt-2">
-                Montant total de votre panier : {{total}} CHF
+                Montant total de votre panier : {{getTotal()}} CHF
             </p>
             <button type="button" class="btn btn-primary mt-2" v-on:click="emptyCart">Vider</button>
         </div>
@@ -67,7 +67,7 @@
                 <button type="button" class="btn btn-primary" v-on:click="addToCart(index)">Ajouter au panier</button>
             </div>
         </div>
-        <div class="col mt-3" v-if="cart.quantity>5">
+        <div class="col mt-3" v-if="checkVIP()">
             <img src="./img/client_vip.webp" alt="client_vip" class="img-fluid img-thumbnail mt-3" height="150px"
                  width="150px">
             <p class="mt-3 text-success">

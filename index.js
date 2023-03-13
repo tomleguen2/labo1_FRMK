@@ -62,18 +62,34 @@ let app = new Vue({
             }
         },
 
+        //calculer le total du panier
+        getTotal() {
+            this.total = 0;
+            this.cart.forEach((item) => {
+                this.total += this.chausettes.find(item2 => item2.id === item.id).price * item.quantity;
+            });
+            return this.total;
+        },
+
         //vider le panier
         emptyCart() {
-            this.cart.forEach((item) => {this.chausettes.find(item2 => item2.id === item.id).quantity += item.quantity;});
+            this.cart.forEach((item) => {
+                this.chausettes.find(item2 => item2.id === item.id).quantity += item.quantity;
+            });
             this.total = 0;
             this.cart = [];
         },
 
+        totalQuantityPanier() {
+            total = 0;
+            this.cart.forEach((item) => {
+                total += item.quantity;
+            });
+            return total;
+        }, checkVIP() {
+            return this.totalQuantityPanier() > 5;
+        },
 
-        //ajoute un vip
-        addVip() {
-            this.chausettes.find(item => item.id === 1).quantity += 1;
-        }
     }
 
-    });
+});
